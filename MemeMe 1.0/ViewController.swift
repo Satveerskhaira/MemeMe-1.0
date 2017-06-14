@@ -8,16 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     @IBOutlet weak var actualImage: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
-
+    
+    // MARK : Dictionary for text field attributes
+    
+    let memeAttributes: [String: Any] = [NSStrokeColorAttributeName: UIColor.black,
+                                         NSForegroundColorAttributeName: UIColor.black,
+                                         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 20)!,
+                                         NSStrokeWidthAttributeName: 1.0 ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        topText.defaultTextAttributes = memeAttributes
+        bottomText.defaultTextAttributes = memeAttributes
+        topText.delegate = self
+        bottomText.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,22 +35,50 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK : Image Picker by Camera
     @IBAction func TakeImgeByCamera(_ sender: Any) {
-        print("take image by camera")
-    }
-
-    @IBAction func PickImageFromAlbum(_ sender: Any) {
-        print("pick image from album")
+        let pickerImage = UIImagePickerController()
+        pickerImage.sourceType = .camera
+        pickerImage.delegate = self
+        present(pickerImage, animated: true, completion: nil)
     }
     
-    @IBAction func ShareMeme(_ sender: Any) {
-    print("share meme")
+    //MARK : Image Picker from Album
+    
+    @IBAction func PickImageFromAlbum(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
     }
+    
+    // MARK : Activity bar
+    @IBAction func ShareMeme(_ sender: Any) {
+        let image = actualImage!
+        let shareActivity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(shareActivity, animated: true, completion: nil)
+    }
+    
+    
     @IBAction func ResetMemeView(_ sender: Any) {
         self.topText.text = " "
         self.bottomText.text = " "
-        print("reset meme veiw")
+            
+    }
     
+    //MARK : Image picker delegate menthods
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.actualImage.image = image
+            if picker.sourceType == .camera {
+                //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 
 }
