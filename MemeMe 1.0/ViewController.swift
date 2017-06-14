@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     @IBOutlet weak var actualImage: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
     // MARK : Dictionary for text field attributes
-    
+    let textFieldDelegate = TopBottomDelegate()
     let memeAttributes: [String: Any] = [NSStrokeColorAttributeName: UIColor.black,
                                          NSForegroundColorAttributeName: UIColor.black,
                                          NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 20)!,
@@ -26,14 +26,21 @@ class ViewController: UIViewController, UITextFieldDelegate,UIImagePickerControl
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         topText.defaultTextAttributes = memeAttributes
         bottomText.defaultTextAttributes = memeAttributes
-        topText.delegate = self
-        bottomText.delegate = self
+        topText.delegate = textFieldDelegate
+        bottomText.delegate = textFieldDelegate
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        //unsubscribeFromKeyboardNotifications()
+    }
+    
     
     //MARK : Image Picker by Camera
     @IBAction func TakeImgeByCamera(_ sender: Any) {
@@ -79,6 +86,13 @@ class ViewController: UIViewController, UITextFieldDelegate,UIImagePickerControl
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK : Update frame
+    func updateViewframe( frameOrigin : CGFloat) {
+        print(view.frame.origin.y)
+        view.frame.origin.y = frameOrigin
+        print(view.frame.origin.y)
     }
 
 }
