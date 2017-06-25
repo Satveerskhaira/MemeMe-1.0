@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TopBottomDelegate: NSObject, UITextFieldDelegate, UIStoryboard {
+class TopBottomDelegate: NSObject, UITextFieldDelegate{
     
     
     
@@ -64,7 +64,7 @@ class TopBottomDelegate: NSObject, UITextFieldDelegate, UIStoryboard {
     
     func keyboardWillHide(_ notification : Notification) {
         
-        //view.frame.origin.y = 0
+        //self.view.frame.origin.y = 0
         print(getKeyboardHeight(notification))
         //viewDel.updateViewframe(frameOrigin: CGFloat(0))
 
