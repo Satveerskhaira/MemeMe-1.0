@@ -47,14 +47,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" spellCheckingType="yes" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Bottom" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Bottom Text" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oif-vH-185" userLabel="Bottom text">
-                                <rect key="frame" x="16" y="597" width="343" height="30"/>
+                                <rect key="frame" x="16" y="595" width="343" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" spellCheckingType="yes" returnKeyType="done"/>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eho-G9-SOs">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -82,7 +82,7 @@
                             <constraint firstAttribute="trailing" secondItem="eho-G9-SOs" secondAttribute="trailing" id="EyD-dC-GYi"/>
                             <constraint firstItem="mec-2r-f7o" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Fzd-qh-9C8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mLa-Ws-mQ4" secondAttribute="trailing" id="RdP-PX-1Th"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="oif-vH-185" secondAttribute="bottom" constant="40" id="T3a-NQ-VEp"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="oif-vH-185" secondAttribute="bottom" constant="42" id="T3a-NQ-VEp"/>
                             <constraint firstItem="dRH-4K-WJj" firstAttribute="top" secondItem="mec-2r-f7o" secondAttribute="bottom" id="T8x-Ci-iHQ"/>
                             <constraint firstItem="eho-G9-SOs" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="UMH-MV-zgA"/>
                             <constraint firstItem="oif-vH-185" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Vuo-pI-pVZ"/>

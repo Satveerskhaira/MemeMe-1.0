@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     var memedObject = [Meme] ()
     var memedImage = UIImage()
-    // MARK : Dictionary for text fiel  d attributes
+    // MARK : Dictionary for text fiel  default attributes
     let textFieldDelegate = TopBottomDelegate()
     let memeAttributes: [String: Any] = [NSForegroundColorAttributeName: UIColor.white,
                                          NSStrokeColorAttributeName: UIColor.black,
@@ -66,6 +66,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         shareMemeImage.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
             if completed == true {
                 self.save()
+                self.reset()
             }
         }
         present(shareMemeImage, animated: true, completion: nil)
@@ -73,11 +74,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK : Set to default values
     @IBAction func ResetMemeView(_ sender: Any) {
-        self.topText.text = " "
-        self.bottomText.text = " "
-        self.actualImage.image = #imageLiteral(resourceName: "MemeGenerator_180")
+        reset()
     }
     
+    func reset( ){
+        self.topText.text = "TOP"
+        self.bottomText.text = "BOTTOM"
+        self.actualImage.image = #imageLiteral(resourceName: "MemeGenerator_180")
+    }
     //MARK : Image picker delegate menthods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -111,10 +115,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK : shift View to enter text in bottom field
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
         if textField.restorationIdentifier == "Bottom" {
             // enable keyboard notification
             subscribeToKeyboardNotifications()
+            if textField.text == "BOTTOM" {
+                textField.text = " "
+            }
+        } else {
+            if textField.text == "TOP" {
+                textField.text = " "
+            }
         }
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
