@@ -20,42 +20,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var memedObject = [Meme] ()
     var memedImage = UIImage()
     // MARK : Dictionary for text fiel  default attributes
-    let textFieldDelegate = TopBottomDelegate()
     let memeAttributes: [String: Any] = [NSForegroundColorAttributeName: UIColor.white,
                                          NSStrokeColorAttributeName: UIColor.black,
                                          NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 20)!,
                                          NSStrokeWidthAttributeName: -4.0 ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        topText.delegate = self
-        bottomText.delegate = self
-        topText.defaultTextAttributes = memeAttributes
-        bottomText.defaultTextAttributes = memeAttributes
-        topText.text = "TOP"
-        bottomText.text = "BOTTOM"
-        topText.borderStyle = .none
-        bottomText.borderStyle = .none
-        topText.textAlignment = .center
-        bottomText.textAlignment = .center
+        configureTextFeild(textField: topText, text: "TOP")
+        configureTextFeild(textField: bottomText, text: "BOTTOM")
         actualImage.image = #imageLiteral(resourceName: "MemeGenerator_180")
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
+    // MARK : Configure text field
+    func configureTextFeild(textField : UITextField, text : String) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeAttributes
+        textField.text = text
+        textField.borderStyle = .none
+        textField.textAlignment = .center
+        
+    }
     //MARK : Image Picker by Camera
     @IBAction func TakeImgeByCamera(_ sender: Any) {
-        let pickerImage = UIImagePickerController()
-        pickerImage.sourceType = .camera
-        pickerImage.delegate = self
-        present(pickerImage, animated: true, completion: nil)
+        imagePickerView(true)
     }
     
     //MARK : Image Picker from Album
     
     @IBAction func PickImageFromAlbum(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
+        imagePickerView(false)
+    }
+    
+    // MARK : Image picker
+    
+    func imagePickerView(_ camera : Bool) {
+        let pickerImage = UIImagePickerController()
+        if camera {
+                pickerImage.sourceType = .camera
+        }
+        pickerImage.delegate = self
+        present(pickerImage, animated: true, completion: nil)
     }
     
     // MARK : Activity bar
@@ -64,7 +69,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let shareMemeImage = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         //Save to MemeObject
         shareMemeImage.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
-            if completed == true {
+            if completed{
                 self.save()
                 self.reset()
             }

@@ -7,17 +7,10 @@
 //
 
 import Foundation
-import UIKit
+import UIKit  //UIImage is not part of Foundation, UIKit is imported
 struct Meme {
     let topText:String
     let bottomText: String
     let oldImage: UIImage
     let memeImage :UIImage
-    
-    init(topText: String, bottomText: String, oldImage: UIImage, memeImage: UIImage) {
-        self.topText = topText
-        self.bottomText = bottomText
-        self.oldImage = oldImage
-        self.memeImage = memeImage
-    }
 }
